@@ -119,15 +119,15 @@ resource "aws_s3_bucket_policy" "output_bucket_policy" {
 # Upload sample data to the input bucket
 resource "aws_s3_object" "bounding_box" {
   bucket = aws_s3_bucket.input_bucket.id
-  key    = "bounding_box.geojson"
-  source = "../data/bounding_box.geojson"
+  key    = "bounding_box.json"
+  source = "../data/bounding_box.json"
   content_type = "application/json"
 }
 
 resource "aws_s3_object" "fields" {
   bucket = aws_s3_bucket.input_bucket.id
-  key    = "fields.geojson"
-  source = "../data/fields.geojson"
+  key    = "fields.json"
+  source = "../data/fields.json"
   content_type = "application/json"
 }
 

@@ -1,0 +1,90 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "field_1",
+        "planting_date": "2023-01-15"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-122.48, 37.76],
+          [-122.47, 37.76],
+          [-122.47, 37.77],
+          [-122.48, 37.77],
+          [-122.48, 37.76]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "field_2",
+        "planting_date": "2023-02-01"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-122.46, 37.75],
+          [-122.45, 37.75],
+          [-122.45, 37.76],
+          [-122.46, 37.76],
+          [-122.46, 37.75]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "field_3",
+        "planting_date": "2023-03-10"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-122.44, 37.77],
+          [-122.43, 37.77],
+          [-122.43, 37.78],
+          [-122.44, 37.78],
+          [-122.44, 37.77]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "field_4",
+        "planting_date": "2023-01-10"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-122.42, 37.73],
+          [-122.41, 37.73],
+          [-122.41, 37.74],
+          [-122.42, 37.74],
+          [-122.42, 37.73]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "field_id": "field_5",
+        "planting_date": "2023-04-05"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-122.51, 37.79],
+          [-122.50, 37.79],
+          [-122.50, 37.80],
+          [-122.51, 37.80],
+          [-122.51, 37.79]
+        ]]
+      }
+    }
+  ]
+}
