@@ -18,15 +18,21 @@ dagster:
     enabled: true
     deployments:
       - name: "hydrosat-deployment"
-        image: "python:3.9-slim"  # Combine repository and tag into a single image string
+        image: "python:3.9-slim"
         dagsterApiGrpcArgs:
           - "--module-name"
           - "dagster_project"
         port: 3030
-        # Install required Python packages
+        # Environment variables for AWS and bucket configuration
         env:
           - name: PYTHONPATH
             value: "/opt/dagster/app"
+          - name: AWS_REGION
+            value: "${aws_region}"
+          - name: INPUT_BUCKET
+            value: "${input_bucket_name}"
+          - name: OUTPUT_BUCKET
+            value: "${output_bucket_name}"
         volumeMounts:
           - name: user-code
             mountPath: /opt/dagster/app
