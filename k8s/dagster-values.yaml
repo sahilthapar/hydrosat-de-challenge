@@ -1,0 +1,53 @@
+# Custom values for Dagster Helm chart
+dagster:
+  # Enable dagster-webserver
+  webserver:
+    enabled: true
+
+  # Enable dagster-daemon
+  daemon:
+    enabled: true
+
+  # Configure PostgreSQL for Dagster
+  postgresql:
+    enabled: true
+    postgresqlPassword: "dagster"
+
+  # User code deployment configuration
+  dagster-user-deployments:
+    enabled: true
+    deployments:
+      - name: "hydrosat-deployment"
+        image: "python:3.9-slim"  # Combine repository and tag into a single image string
+        dagsterApiGrpcArgs:
+          - "--module-name"
+          - "dagster_project"
+        port: 3030
+        # Install required Python packages
+        env:
+          - name: PYTHONPATH
+            value: "/opt/dagster/app"
+        volumeMounts:
+          - name: user-code
+            mountPath: /opt/dagster/app
+        volumes:
+          - name: user-code
+            configMap:
+              name: dagster-user-code
+        initContainers:
+          - name: install-deps
+            image: python:3.9-slim
+            command: ["pip"]
+            args: ["install", "-e", "/opt/dagster/app", "dagster", "dagster-aws", "boto3", "geopandas", "shapely", "pandas", "numpy", "rasterio", "pyproj"]
+            volumeMounts:
+              - name: user-code
+                mountPath: /opt/dagster/app
+
+  # Resource limits
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
