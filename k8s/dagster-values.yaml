@@ -1,59 +1,30 @@
 # Custom values for Dagster Helm chart
+dagster-user-deployments:
+  enabled: true
+  deployments:
+    - name: "hydrosat-deployment"
+      image:
+        repository: "hydrosat-dagster"
+        tag: "latest"
+        pullPolicy: "IfNotPresent"
+      dagsterApiGrpcArgs:
+        - "--module-name"
+        - "dagster_project"
+      port: 3030
+      env:
+        - name: "AWS_REGION"
+          value: "us-east-1"
+        - name: "INPUT_BUCKET"
+          value: "hydrosat-input-data"
+        - name: "OUTPUT_BUCKET"
+          value: "hydrosat-output-data"
+
+postgresql:
+  enabled: true
+  postgresqlPassword: "dagster"
+
 dagster:
-  # Enable dagster-webserver
   webserver:
     enabled: true
-
-  # Enable dagster-daemon
   daemon:
     enabled: true
-
-  # Configure PostgreSQL for Dagster
-  postgresql:
-    enabled: true
-    postgresqlPassword: "dagster"
-
-  # User code deployment configuration
-  dagster-user-deployments:
-    enabled: true
-    deployments:
-      - name: "hydrosat-deployment"
-        image: "python:3.9-slim"
-        dagsterApiGrpcArgs:
-          - "--module-name"
-          - "dagster_project"
-        port: 3030
-        # Environment variables for AWS and bucket configuration
-        env:
-          - name: PYTHONPATH
-            value: "/opt/dagster/app"
-          - name: AWS_REGION
-            value: "${aws_region}"
-          - name: INPUT_BUCKET
-            value: "${input_bucket_name}"
-          - name: OUTPUT_BUCKET
-            value: "${output_bucket_name}"
-        volumeMounts:
-          - name: user-code
-            mountPath: /opt/dagster/app
-        volumes:
-          - name: user-code
-            configMap:
-              name: dagster-user-code
-        initContainers:
-          - name: install-deps
-            image: python:3.9-slim
-            command: ["pip"]
-            args: ["install", "-e", "/opt/dagster/app", "dagster", "dagster-aws", "boto3", "geopandas", "shapely", "pandas", "numpy", "rasterio", "pyproj"]
-            volumeMounts:
-              - name: user-code
-                mountPath: /opt/dagster/app
-
-  # Resource limits
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "100m"
-    limits:
-      memory: "512Mi"
-      cpu: "500m"

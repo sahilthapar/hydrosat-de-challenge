@@ -138,7 +138,15 @@ resource "helm_release" "dagster" {
   chart      = "dagster"
   namespace  = kubernetes_namespace.hydrosat.metadata[0].name
 
-  # Customize Dagster deployment
+  timeout    = 900  # 15 minutes
+  wait       = true
+  wait_for_jobs = true
+
+  set {
+    name  = "dagster-webserver.enabled"
+    value = "true"
+  }
+
   values = [
     templatefile("${path.module}/../k8s/dagster-values.yaml", {
       aws_region         = var.aws_region
