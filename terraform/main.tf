@@ -140,37 +140,10 @@ resource "helm_release" "dagster" {
 
   # Customize Dagster deployment
   values = [
-    file("${path.module}/../k8s/dagster-values.yaml")
+    templatefile("${path.module}/../k8s/dagster-values.yaml", {
+      aws_region         = var.aws_region
+      input_bucket_name  = var.input_bucket_name
+      output_bucket_name = var.output_bucket_name
+    })
   ]
-
-  # Set AWS credentials as environment variables for Dagster
-  set {
-    name  = "dagster-user-deployments.deployments[0].env[0].name"
-    value = "AWS_REGION"
-  }
-
-  set {
-    name  = "dagster-user-deployments.deployments[0].env[0].value"
-    value = var.aws_region
-  }
-
-  set {
-    name  = "dagster-user-deployments.deployments[0].env[1].name"
-    value = "INPUT_BUCKET"
-  }
-
-  set {
-    name  = "dagster-user-deployments.deployments[0].env[1].value"
-    value = var.input_bucket_name
-  }
-
-  set {
-    name  = "dagster-user-deployments.deployments[0].env[2].name"
-    value = "OUTPUT_BUCKET"
-  }
-
-  set {
-    name  = "dagster-user-deployments.deployments[0].env[2].value"
-    value = var.output_bucket_name
-  }
 }
