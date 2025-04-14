@@ -14,7 +14,7 @@ RUN apt-get update && \
 COPY dagster_project/ /opt/dagster/app/
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -e /opt/dagster/app/
+RUN pip install --no-cache-dir -e .
 
 # Set Python path
 ENV PYTHONPATH=/opt/dagster/app
