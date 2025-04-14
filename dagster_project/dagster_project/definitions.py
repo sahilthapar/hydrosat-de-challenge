@@ -1,5 +1,6 @@
 from dagster import Definitions, load_assets_from_modules
-from dagster_project import assets, resources
+from dagster_project import assets
+from dagster_project.resources import s3_resource
 
 # Load assets from the assets module
 all_assets = load_assets_from_modules([assets])
@@ -8,6 +9,6 @@ all_assets = load_assets_from_modules([assets])
 defs = Definitions(
     assets=all_assets,
     resources={
-        "s3": resources.s3_resource,
+        "s3": s3_resource,
     },
 )

@@ -15,6 +15,7 @@ partitions_def = DailyPartitionsDefinition(start_date=start_date)
     partitions_def=partitions_def,
     group_name="hydrosat",
     description="Process field data within a bounding box and calculate metrics for each field",
+    required_resource_keys={"s3"}
 )
 def field_metrics(context: AssetExecutionContext) -> None:
     """
