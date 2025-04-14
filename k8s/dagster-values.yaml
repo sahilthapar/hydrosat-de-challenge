@@ -8,8 +8,8 @@ dagster-user-deployments:
         tag: "latest"
         pullPolicy: "IfNotPresent"
       dagsterApiGrpcArgs:
-        - "--module-name"
-        - "dagster_project"
+        - "--python-file"
+        - "definitions.py"
       port: 3030
       env:
         - name: "AWS_REGION"
